@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Pixelario.CUIT</RootNamespace>
+    <AssemblyName>Pixelario.CUIT</AssemblyName>
+    <Version>0.1.0</Version>
+    <Authors>Ing. Bernardo Raskovsky</Authors>
+    <Company>Pixelario</Company>
+    <Description>Una estructura para trabajar de forma rápida y segura el valor CUIT (Argentino) en aplicaciones C#.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/pixelario/CUIT</RepositoryUrl>
+    <PackageTags>CUIT, Argentina</PackageTags>
+    <PackageReleaseNotes>* Instancia CUIT's por componentes en entero o por distintos formato de cadenas
+* Metodo ToString con distintas salidas
+* Compara CUIT's en distintos formatos</PackageReleaseNotes>
+    <PackageProjectUrl>http://www.pixelario.com.ar</PackageProjectUrl>
+    <PackageIcon>CUIT.png</PackageIcon>
+    <PackageIconUrl />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\CUIT.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
