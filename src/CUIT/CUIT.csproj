@@ -7,6 +7,7 @@
     <Version>0.1.0</Version>
     <Authors>Ing. Bernardo Raskovsky</Authors>
     <Company>Pixelario</Company>
+    <Title>CUIT</Title>
     <Description>Una estructura para trabajar de forma rápida y segura el valor CUIT (Argentino) en aplicaciones C#.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/pixelario/CUIT</RepositoryUrl>
@@ -17,14 +18,11 @@
     <PackageProjectUrl>http://www.pixelario.com.ar</PackageProjectUrl>
     <PackageIcon>CUIT.png</PackageIcon>
     <PackageIconUrl />
+    <Copyright>2021</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\..\CUIT.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="CUIT.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
