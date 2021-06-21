@@ -1,5 +1,5 @@
 ## Dame una estrella :star:
-Si te gusta este proyecto podes darle una estrella, seguirlo o contribuir!
+Si le gusta este proyecto puede aporyarlo dandole una estrella, seguirlo o contribuir!
 
 # CUIT
 Una estructura para trabajar de forma rápida y segura el valor CUIT (Argentino) en aplicaciones C#.
@@ -59,6 +59,15 @@ Console.WriteLine(cuit.ToString("dot")); // 20.27001001.7
 Console.WriteLine(cuit.ToString("espacio")); // 20 27001001 7
 Console.WriteLine(cuit.ToString("space")); // 20 27001001 7
 
+
 ```
+## Instalación
+```
+Install-Package Pixelario.CUIT -Version 0.1.0
+```
+Plataforma | Estado
+--- | ---
+**NuGet** | [![nuget](https://img.shields.io/nuget/v/Pixelario.CUIT.svg)](https://www.nuget.org/packages/Pixelario.CUIT/)
+
 ## ¿Queres contribuir?
-Puede agregar un Issue o enviar un PR.
+Puede agregar un Issue, una discución, ser sponsor o enviar un PR.
