@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Pixelario.CUIT</RootNamespace>
     <AssemblyName>Pixelario.CUIT</AssemblyName>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>Ing. Bernardo Raskovsky</Authors>
     <Company>Pixelario</Company>
     <Title>CUIT</Title>

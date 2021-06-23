@@ -8,7 +8,7 @@ Una estructura para trabajar de forma rápida y segura el valor CUIT (Argentino)
 Puede instanciar un CUIT de dos formas. Por sus componentes o una cadena con y sin separadores.
 
 ```c#
-var tipo = TiposDeCUIT._20;
+var tipo = TipoDeCUIT._20;
 var numeroDeDocumento = 27001001;
 var verificador = 7;
 var cuit = new CUIT(
@@ -34,6 +34,20 @@ var cadena4 = "20 27001001 7";
 var cuit4 = new CUIT(
     cuit: cadena4);
 ```
+
+El componente tipo es un enum con las siguientes opciones
+```c#
+public enum TipoDeCUIT {
+    _20 = 20,
+    _23 = 23,
+    _24 = 24,
+    _27 = 27,
+    _30 = 30,
+    _33 = 33,
+    _34 = 34
+}
+```
+
 ## Métodos
 
 ### IsValid()
@@ -44,7 +58,7 @@ bool cuitIsValid = cuit.IsValid();
 ### ToString()
 Puede expresar un CUIT de distintas formas usuando como parametro un separador.
 ```c#
-var tipo = TiposDeCUIT._20;
+var tipo = TipoDeCUIT._20;
 var numeroDeDocumento = 27001001;
 var verificador = 7;
 var cuit = new CUIT(
@@ -68,6 +82,10 @@ Install-Package Pixelario.CUIT -Version 0.1.0
 Plataforma | Estado
 --- | ---
 **NuGet** | [![nuget](https://img.shields.io/nuget/v/Pixelario.CUIT.svg)](https://www.nuget.org/packages/Pixelario.CUIT/)
+
+## Referencias:
+
+[Clave Única de Identificación Tributaria](https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Identificaci%C3%B3n_Tributaria)
 
 ## ¿Queres contribuir?
 Puede agregar un Issue, una discución, ser sponsor o enviar un PR.

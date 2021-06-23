@@ -1,6 +1,6 @@
 ﻿namespace Pixelario.CUIT
 {
-    public enum TiposDeCUIT
+    public enum TipoDeCUIT
     {
         _20 = 20,
         _23 = 23,

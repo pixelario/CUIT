@@ -6,12 +6,12 @@
 
         public static readonly TestCUITIsValid ValidCUITConParametros = new TestCUITIsValid(
             resultadoCorrecto: true,
-            tipoDeCUIT: TiposDeCUIT._20,
+            tipoDeCUIT: TipoDeCUIT._20,
             numeroDeDocumento: 27001001,
             verificador: 7);
         public static readonly TestCUITIsValid InValidCUITConParametros = new TestCUITIsValid(
             resultadoCorrecto: false,
-            tipoDeCUIT: TiposDeCUIT._23,
+            tipoDeCUIT: TipoDeCUIT._23,
             numeroDeDocumento: 27001001,
             verificador: 7);
         public static readonly TestCUITIsValid ValidCUITConString = new TestCUITIsValid(
@@ -20,12 +20,12 @@
             resultadoCorrecto: false, "23270010017");
         public static readonly TestCUITIsValid ValidCUITCortoConParametros = new TestCUITIsValid(
            resultadoCorrecto: true,
-           tipoDeCUIT: TiposDeCUIT._20,
+           tipoDeCUIT: TipoDeCUIT._20,
            numeroDeDocumento: 7001001,
            verificador: 2);
         public static readonly TestCUITIsValid InValidCUITCortoConParametros = new TestCUITIsValid(
             resultadoCorrecto: false,
-            tipoDeCUIT: TiposDeCUIT._23,
+            tipoDeCUIT: TipoDeCUIT._23,
             numeroDeDocumento: 7001001,
             verificador: 2);
         public static readonly TestCUITIsValid ValidCUITCortoConString = new TestCUITIsValid(
@@ -37,7 +37,7 @@
         {
             this.ResultadoCorrecto = resultadoCorrecto;
         }
-        protected TestCUITIsValid(bool resultadoCorrecto, TiposDeCUIT tipoDeCUIT, int numeroDeDocumento, int verificador)
+        protected TestCUITIsValid(bool resultadoCorrecto, TipoDeCUIT tipoDeCUIT, int numeroDeDocumento, int verificador)
             : base(tipoDeCUIT: tipoDeCUIT, numeroDeDocumento: numeroDeDocumento,
                   verificador: verificador)
         {

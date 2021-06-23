@@ -8,34 +8,34 @@
 
         public static readonly TestCUITEquality EqualsCUITLargosConParametros = new TestCUITEquality(
             resultadoCorrecto: true,
-            cuit1: new CUIT(tipoDeCUIT: TiposDeCUIT._20,
+            cuit1: new CUIT(tipoDeCUIT: TipoDeCUIT._20,
                 numeroDeDocumento: 27001001,
                 verificador: 7),
-            cuit2: new CUIT(tipoDeCUIT: TiposDeCUIT._20,
+            cuit2: new CUIT(tipoDeCUIT: TipoDeCUIT._20,
                 numeroDeDocumento: 27001001,
                 verificador: 7));
         public static readonly TestCUITEquality NotEqualsCUITLargosConParametros = new TestCUITEquality(
             resultadoCorrecto: false,
-            cuit1: new CUIT(tipoDeCUIT: TiposDeCUIT._20,
+            cuit1: new CUIT(tipoDeCUIT: TipoDeCUIT._20,
                 numeroDeDocumento: 27001001,
                 verificador: 7),
-            cuit2: new CUIT(tipoDeCUIT: TiposDeCUIT._20,
+            cuit2: new CUIT(tipoDeCUIT: TipoDeCUIT._20,
                 numeroDeDocumento: 28001001,
                 verificador: 7));
         public static readonly TestCUITEquality EqualsCUITCortoConParametros = new TestCUITEquality(
             resultadoCorrecto: true,
-            cuit1: new CUIT(tipoDeCUIT: TiposDeCUIT._20,
+            cuit1: new CUIT(tipoDeCUIT: TipoDeCUIT._20,
                 numeroDeDocumento: 7001001,
                 verificador: 7),
-            cuit2: new CUIT(tipoDeCUIT: TiposDeCUIT._20,
+            cuit2: new CUIT(tipoDeCUIT: TipoDeCUIT._20,
                 numeroDeDocumento: 7001001,
                 verificador: 7));
         public static readonly TestCUITEquality NotEqualsCUITCortosConParametros = new TestCUITEquality(
             resultadoCorrecto: false,
-            cuit1: new CUIT(tipoDeCUIT: TiposDeCUIT._20,
+            cuit1: new CUIT(tipoDeCUIT: TipoDeCUIT._20,
                 numeroDeDocumento: 7001001,
                 verificador: 7),
-            cuit2: new CUIT(tipoDeCUIT: TiposDeCUIT._20,
+            cuit2: new CUIT(tipoDeCUIT: TipoDeCUIT._20,
                 numeroDeDocumento: 8001001,
                 verificador: 7));
 

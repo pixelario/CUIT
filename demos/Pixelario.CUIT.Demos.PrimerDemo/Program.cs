@@ -6,14 +6,14 @@ namespace Pixelario.CUIT.Demos.PrimerDemo
     class Program
     {
         private static Random _random = new Random();
-        private static  TiposDeCUIT[] arrayTiposDeCuit = new TiposDeCUIT[] { 
-                TiposDeCUIT._20,
-                TiposDeCUIT._23,
-                TiposDeCUIT._24,
-                TiposDeCUIT._27,
-                TiposDeCUIT._30,
-                TiposDeCUIT._33,
-                TiposDeCUIT._34
+        private static  TipoDeCUIT[] arrayTiposDeCuit = new TipoDeCUIT[] { 
+                TipoDeCUIT._20,
+                TipoDeCUIT._23,
+                TipoDeCUIT._24,
+                TipoDeCUIT._27,
+                TipoDeCUIT._30,
+                TipoDeCUIT._33,
+                TipoDeCUIT._34
             };
         static void Main(string[] args)
         {
@@ -31,7 +31,7 @@ namespace Pixelario.CUIT.Demos.PrimerDemo
                     cuitsValidos++;
                 }
             }
-            Console.WriteLine(string.Format("Se generaron {0} CUITs aleatorios, solo {1} fueron distintos y solo {2} fueron validos.",
+            Console.WriteLine(string.Format("Fueron generados {0} CUITs aleatorios, solo {1} fueron distintos y solo {2} fueron válidos.",
                 listaDeCUITs.Count,
                 listaDeCUITsUnicos.Count,
                 cuitsValidos));

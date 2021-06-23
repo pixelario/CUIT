@@ -7,10 +7,10 @@ namespace Pixelario.CUIT
     {
         public struct ComponentesStruct
         {
-            public TiposDeCUIT Tipo { get; set; }
+            public TipoDeCUIT Tipo { get; set; }
             public int NumeroDeDocumento { get; set; }
             public int Verificador { get; set; }
-            public ComponentesStruct(TiposDeCUIT tipo, int numeroDeDocumento,
+            public ComponentesStruct(TipoDeCUIT tipo, int numeroDeDocumento,
                 int verificador)
             {
                 this.Tipo = tipo;
@@ -56,7 +56,7 @@ namespace Pixelario.CUIT
             }
         }
 
-        public CUIT(TiposDeCUIT tipoDeCUIT, int numeroDeDocumento, int verificador)
+        public CUIT(TipoDeCUIT tipoDeCUIT, int numeroDeDocumento, int verificador)
         {
             this.Componentes = new ComponentesStruct(
                 tipo: tipoDeCUIT,
@@ -73,7 +73,7 @@ namespace Pixelario.CUIT
                 this._isValid = false;
             }
             int tipo = int.Parse(cuit.Substring(0, 2));
-            if (!Enum.IsDefined(typeof(TiposDeCUIT), tipo))
+            if (!Enum.IsDefined(typeof(TipoDeCUIT), tipo))
             {
                 this._isValid = false;
             }
@@ -91,7 +91,7 @@ namespace Pixelario.CUIT
                 verificador = int.Parse(cuit.Substring(9));
 
             }
-            return new ComponentesStruct(tipo: (TiposDeCUIT)tipo,
+            return new ComponentesStruct(tipo: (TipoDeCUIT)tipo,
                 numeroDeDocumento: numeroDeDocumento,
                 verificador: verificador);
         }
@@ -105,7 +105,7 @@ namespace Pixelario.CUIT
             int tipo = int.Parse(componentes[0]);
             int numeroDeDocumento = int.Parse(componentes[1]);
             int verificador = int.Parse(componentes[2]);
-            return new ComponentesStruct(tipo: (TiposDeCUIT)tipo,
+            return new ComponentesStruct(tipo: (TipoDeCUIT)tipo,
                 numeroDeDocumento: numeroDeDocumento,
                 verificador: verificador);
         }
