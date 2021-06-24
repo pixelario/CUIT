@@ -5,6 +5,8 @@ namespace Pixelario.CUIT
 {
     public class CUIT : IEquatable<CUIT>
     {
+        private const long MINCUIT = 20010000000;
+        private const long MAXCUIT = 34999999999;
         public struct ComponentesStruct
         {
             public TipoDeCUIT Tipo { get; set; }
@@ -64,7 +66,18 @@ namespace Pixelario.CUIT
                 verificador: verificador);
             this._isValid = this.CalcularVerificador() == this.Componentes.Verificador;
         }
-
+        public CUIT(long cuit)
+        {
+            if(cuit < MINCUIT || cuit > MAXCUIT)
+            {
+                this._isValid = false;
+            }
+            else
+            {
+                this.Componentes = this.CastString(cuit.ToString());
+                this._isValid = this.CalcularVerificador() == this.Componentes.Verificador;
+            }
+        }
         private ComponentesStruct CastString(string cuit)
         {
             if (cuit.Length < 10 ||
