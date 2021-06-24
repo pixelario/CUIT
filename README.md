@@ -77,7 +77,7 @@ Console.WriteLine(cuit.ToString("space")); // 20 27001001 7
 ```
 ## Instalación
 ```
-Install-Package Pixelario.CUIT -Version 0.1.0
+Install-Package Pixelario.CUIT -Version 0.2.0
 ```
 Plataforma | Estado
 --- | ---
