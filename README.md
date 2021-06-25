@@ -4,9 +4,19 @@ Si le gusta este proyecto puede aporyarlo dandole una estrella, seguirlo o contr
 # CUIT
 Una estructura para trabajar de forma rápida y segura el valor CUIT (Argentino) en aplicaciones C#.
 
-## Modo de uso
-Puede instanciar un CUIT de dos formas. Por sus componentes o una cadena con y sin separadores.
+Plataforma | Estado
+--- | ---
+**NuGet** | [![nuget](https://img.shields.io/nuget/v/Pixelario.CUIT.svg)](https://www.nuget.org/packages/Pixelario.CUIT/)
 
+## Instalación
+```
+Install-Package Pixelario.CUIT -Version 0.3.0
+```
+
+## Modo de uso
+Puede instanciar un CUIT de tres formas. Por sus componentes, por un valor long o una cadena con y sin separadores.
+
+#### Por sus componentes
 ```c#
 var tipo = TipoDeCUIT._20;
 var numeroDeDocumento = 27001001;
@@ -16,7 +26,13 @@ var cuit = new CUIT(
     numeroDeDocumento: numeroDeDocumento, 
     verificador: verificador);
 ```
-o
+#### Por un número long
+```c#
+var long1 = 20270010017;
+var cuit1 = new CUIT(
+    cuit: long1);
+```
+#### Por una cadena con o sin separador
 ```c#
 var cadena1 = "20270010017";
 var cuit1 = new CUIT(
@@ -75,17 +91,10 @@ Console.WriteLine(cuit.ToString("space")); // 20 27001001 7
 
 
 ```
-## Instalación
-```
-Install-Package Pixelario.CUIT -Version 0.2.0
-```
-Plataforma | Estado
---- | ---
-**NuGet** | [![nuget](https://img.shields.io/nuget/v/Pixelario.CUIT.svg)](https://www.nuget.org/packages/Pixelario.CUIT/)
 
 ## Referencias:
 
 [Clave Única de Identificación Tributaria](https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Identificaci%C3%B3n_Tributaria)
 
-## ¿Queres contribuir?
+## ¿Quiere contribuir?
 Puede agregar un Issue, una discución, ser sponsor o enviar un PR.
