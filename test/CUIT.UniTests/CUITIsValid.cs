@@ -13,7 +13,12 @@ namespace Pixelario.CUIT.UniTests
             TestCUITIsValid.ValidCUITCortoConParametros,
             TestCUITIsValid.InValidCUITCortoConParametros,
             TestCUITIsValid.ValidCUITCortoConString,
-            TestCUITIsValid.InValidCUITCortoConString
+            TestCUITIsValid.InValidCUITCortoConString,
+            TestCUITIsValid.ValidCUITConLong,
+            TestCUITIsValid.InValidCUITConMinLong,
+            TestCUITIsValid.InValidCUITConMaxLong,
+            TestCUITIsValid.ValidCUITCortoConLong,
+            TestCUITIsValid.InValidCUITCortoConLong
         };
         
         [Theory]
