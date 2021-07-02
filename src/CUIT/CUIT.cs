@@ -53,18 +53,27 @@ namespace Pixelario.CUIT
                 }
                 if (this._isValid)
                 {
-                    this._isValid = this.CalcularVerificador() == this.Componentes.Verificador;
+                    this._isValid = CUIT.CalcularVerificador(this.ToString()) == this.Componentes.Verificador;
                 }
             }
         }
 
+        public static CUIT Complete(TipoDeCUIT tipoDeCUIT, int numeroDeDocumento)
+        {
+            return new CUIT(tipoDeCUIT, numeroDeDocumento,
+                CUIT.CalcularVerificador(
+                    string.Format("{0}{1}0", (int)tipoDeCUIT,
+                        numeroDeDocumento.ToString().Length > 7 ?
+                            numeroDeDocumento.ToString() :
+                            string.Format("0{0}", numeroDeDocumento.ToString()))));
+        }
         public CUIT(TipoDeCUIT tipoDeCUIT, int numeroDeDocumento, int verificador)
         {
             this.Componentes = new ComponentesStruct(
                 tipo: tipoDeCUIT,
                 numeroDeDocumento: numeroDeDocumento,
                 verificador: verificador);
-            this._isValid = this.CalcularVerificador() == this.Componentes.Verificador;
+            this._isValid = CUIT.CalcularVerificador(this.ToString()) == this.Componentes.Verificador;
         }
         public CUIT(long cuit)
         {
@@ -75,7 +84,7 @@ namespace Pixelario.CUIT
             else
             {
                 this.Componentes = this.CastString(cuit.ToString());
-                this._isValid = this.CalcularVerificador() == this.Componentes.Verificador;
+                this._isValid = CUIT.CalcularVerificador(cuit.ToString()) == this.Componentes.Verificador;
             }
         }
         private ComponentesStruct CastString(string cuit)
@@ -165,15 +174,15 @@ namespace Pixelario.CUIT
             }
         }
 
-        private int CalcularVerificador()
+        private static int CalcularVerificador(string cadena)
         {
-            string codes = "6789456789";
+            string code = "6789456789";
             int x = 0;
             int suma = 0;
             while (x < 10)
             {
-                int producto1 = int.Parse(codes.Substring((x), 1));
-                int producto2 = int.Parse(this.ToString().Substring((x), 1));
+                int producto1 = int.Parse(code.Substring((x), 1));
+                int producto2 = int.Parse(cadena.Substring((x), 1));
                 int producto = producto1 * producto2;
                 suma += producto;
                 x++;

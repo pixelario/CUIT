@@ -10,7 +10,7 @@ Plataforma | Estado
 
 ## Instalación
 ```
-Install-Package Pixelario.CUIT -Version 0.3.0
+Install-Package Pixelario.CUIT -Version 0.4.0
 ```
 
 ## Modo de uso
@@ -26,12 +26,14 @@ var cuit = new CUIT(
     numeroDeDocumento: numeroDeDocumento, 
     verificador: verificador);
 ```
+
 #### Por un número long
 ```c#
 var long1 = 20270010017;
 var cuit1 = new CUIT(
     cuit: long1);
 ```
+
 #### Por una cadena con o sin separador
 ```c#
 var cadena1 = "20270010017";
@@ -66,12 +68,13 @@ public enum TipoDeCUIT {
 
 ## Métodos
 
-### IsValid()
+### IsValid
 .IsValid calcula y controla que los componentes del CUIT verifican que es valido.
 ```c#
 bool cuitIsValid = cuit.IsValid();
 ```
-### ToString()
+
+### ToString
 Puede expresar un CUIT de distintas formas usuando como parametro un separador.
 ```c#
 var tipo = TipoDeCUIT._20;
@@ -88,7 +91,14 @@ Console.WriteLine(cuit.ToString("punto")); // 20.27001001.7
 Console.WriteLine(cuit.ToString("dot")); // 20.27001001.7
 Console.WriteLine(cuit.ToString("espacio")); // 20 27001001 7
 Console.WriteLine(cuit.ToString("space")); // 20 27001001 7
+```
 
+### Complete
+Puede completar un CUIT con solo los dos primeros componentes: Tipo y Número de Documento.
+```c#
+var cuit = CUIT.Complete(
+    tipoDeCUIT: TipoDeCUIT._20,
+    numeroDeDocumento: 27001001);
 
 ```
 
