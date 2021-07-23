@@ -89,12 +89,13 @@ namespace Pixelario.CUIT
         }
         private ComponentesStruct CastString(string cuit)
         {
-            if (cuit.Length < 10 ||
-                cuit.Length > 11)
+            ReadOnlySpan<char> _cuitSpan = cuit.AsSpan();
+            if (_cuitSpan.Length < 10 ||
+                _cuitSpan.Length > 11)
             {
                 this._isValid = false;
             }
-            int tipo = int.Parse(cuit.Substring(0, 2));
+            int tipo = int.Parse(_cuitSpan.Slice(0, 2));
             if (!Enum.IsDefined(typeof(TipoDeCUIT), tipo))
             {
                 this._isValid = false;
@@ -104,13 +105,13 @@ namespace Pixelario.CUIT
             int verificador;
             if (cuit.Length == 11)
             {
-                numeroDeDocumento = int.Parse(cuit.Substring(2, 8));
-                verificador = int.Parse(cuit.Substring(10));
+                numeroDeDocumento = int.Parse(_cuitSpan.Slice(2, 8));
+                verificador = int.Parse(_cuitSpan.Slice(10));
             }
             else
             {
-                numeroDeDocumento = int.Parse(cuit.Substring(2, 7));
-                verificador = int.Parse(cuit.Substring(9));
+                numeroDeDocumento = int.Parse(_cuitSpan.Slice(2, 7));
+                verificador = int.Parse(_cuitSpan.Slice(9));
 
             }
             return new ComponentesStruct(tipo: (TipoDeCUIT)tipo,
@@ -119,14 +120,39 @@ namespace Pixelario.CUIT
         }
         private ComponentesStruct CastString(string cuit, char separador)
         {
-            var componentes = cuit.Split(separador);
-            if (componentes.Length != 3)
+            int tipo = 0, numeroDeDocumento = 0, verificador = 0;
+            ReadOnlySpan<char> _cuitSpan = cuit.AsSpan();
+            for (int i = 0; i<3; i++)
             {
-                this._isValid = false;
+                if (_cuitSpan.Length == 0)
+                {
+                    this._isValid = false;
+                }
+                else
+                {
+                    var index = _cuitSpan.IndexOf(separador);
+                    if(index == -1 && i < 2)
+                    {
+                        this._isValid = false;
+                    }
+                    else
+                    {
+                        switch(i)
+                        {
+                            case 0:
+                                tipo = int.Parse(_cuitSpan.Slice(0, index));
+                                break;
+                            case 1:
+                                numeroDeDocumento = int.Parse(_cuitSpan.Slice(0, index));
+                                break;
+                            case 2:
+                                verificador = int.Parse(_cuitSpan);
+                                break;
+                        }                        
+                        _cuitSpan = _cuitSpan.Slice(index + 1);
+                    }
+                }
             }
-            int tipo = int.Parse(componentes[0]);
-            int numeroDeDocumento = int.Parse(componentes[1]);
-            int verificador = int.Parse(componentes[2]);
             return new ComponentesStruct(tipo: (TipoDeCUIT)tipo,
                 numeroDeDocumento: numeroDeDocumento,
                 verificador: verificador);
@@ -176,13 +202,14 @@ namespace Pixelario.CUIT
 
         private static int CalcularVerificador(string cadena)
         {
-            string code = "6789456789";
+            ReadOnlySpan<char> code = "6789456789".AsSpan();
+            ReadOnlySpan<char> _cadenaSpan = cadena.AsSpan();
             int x = 0;
             int suma = 0;
             while (x < 10)
             {
-                int producto1 = int.Parse(code.Substring((x), 1));
-                int producto2 = int.Parse(cadena.Substring((x), 1));
+                int producto1 = int.Parse(code.Slice((x), 1));
+                int producto2 = int.Parse(_cadenaSpan.Slice((x), 1));
                 int producto = producto1 * producto2;
                 suma += producto;
                 x++;
