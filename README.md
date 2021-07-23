@@ -1,5 +1,5 @@
 ## Dale una estrella :star:
-Si le gusta este proyecto puede aporyarlo dandole una estrella, seguirlo o contribuir!
+Si le gusta este proyecto puede apoyarlo dandole una estrella, seguirlo o contribuir!
 
 # CUIT
 Una estructura para trabajar de forma rápida y segura el valor CUIT (Argentino) en aplicaciones C#.
