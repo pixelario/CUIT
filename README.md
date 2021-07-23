@@ -1,4 +1,4 @@
-## Dame una estrella :star:
+## Dale una estrella :star:
 Si le gusta este proyecto puede aporyarlo dandole una estrella, seguirlo o contribuir!
 
 # CUIT
@@ -10,7 +10,7 @@ Plataforma | Estado
 
 ## Instalación
 ```
-Install-Package Pixelario.CUIT -Version 0.4.0
+Install-Package Pixelario.CUIT -Version 0.5.0
 ```
 
 ## Modo de uso

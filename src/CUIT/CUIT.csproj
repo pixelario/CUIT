@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Pixelario.CUIT</RootNamespace>
     <AssemblyName>Pixelario.CUIT</AssemblyName>
-    <Version>0.4.0</Version>
+    <Version>0.5.0</Version>
     <Authors>Ing. Bernardo Raskovsky</Authors>
     <Company>Pixelario</Company>
     <Title>CUIT</Title>
@@ -12,7 +12,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/pixelario/CUIT</RepositoryUrl>
     <PackageTags>CUIT, Argentina</PackageTags>
-    <PackageReleaseNotes>* Completa un CUIT por sus primeros dos componentes</PackageReleaseNotes>
+    <PackageReleaseNotes>* Mejoras en tiempo de ejecución y uso del espacio en memoria.</PackageReleaseNotes>
     <PackageProjectUrl>http://www.pixelario.com.ar</PackageProjectUrl>
     <PackageIcon>CUIT.png</PackageIcon>
     <PackageIconUrl />
@@ -24,6 +24,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.4" />
   </ItemGroup>
 
 </Project>
