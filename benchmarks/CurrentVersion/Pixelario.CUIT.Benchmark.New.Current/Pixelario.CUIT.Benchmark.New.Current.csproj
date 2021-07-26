@@ -3,17 +3,15 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Pixelario.CUIT.Benchmark.Current</RootNamespace>
-    <AssemblyName>Pixelario.CUIT.Benchmark.Current</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
-    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.0" />
+    <PackageReference Include="BenchmarkDotNet.Toolchains.Roslyn" Version="0.10.14" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CUIT\CUIT.csproj" />
+    <ProjectReference Include="..\..\..\src\CUIT\CUIT.csproj" />
   </ItemGroup>
 
 </Project>
