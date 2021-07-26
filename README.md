@@ -10,7 +10,7 @@ Plataforma | Estado
 
 ## Instalación
 ```
-Install-Package Pixelario.CUIT -Version 0.5.0
+Install-Package Pixelario.CUIT -Version 0.6.0
 ```
 
 ## Modo de uso
