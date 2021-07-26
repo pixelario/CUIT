@@ -7,6 +7,14 @@ namespace Pixelario.CUIT
     {
         private const long MINCUIT = 20010000000;
         private const long MAXCUIT = 34999999999;
+        private static readonly Regex RegexSoloNumeros = new Regex(@"^\d+$", // Cadena regex
+            RegexOptions.Compiled | //El regex debe estar precompilado
+            RegexOptions.CultureInvariant, // No necesitamos chequear cultura para digitos, -,. y espacios
+            TimeSpan.FromMilliseconds(100) // Importante no puede tardar mas de 100 milisegundos en detectar (evitar consumo de micro)
+            );
+        private static readonly Regex RegexConGuiones = new Regex(@"^\d{2}(-\d{7,8})-\d$", RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(100));
+        private static readonly Regex RegexConPuntos = new Regex(@"^\d{2}(\.\d{7,8})\.\d$", RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(100));
+        private static readonly Regex RegexConEspacio = new Regex(@"^\d{2}(\s\d{7,8})\s\d$", RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(100));
         public struct ComponentesStruct
         {
             public TipoDeCUIT Tipo { get; set; }
@@ -31,23 +39,19 @@ namespace Pixelario.CUIT
             }
             else
             {
-                var regexSoloNumeros = new Regex(@"^\d+$");
-                if (regexSoloNumeros.IsMatch(cuit))
+                if (RegexSoloNumeros.IsMatch(cuit))
                 {
                     this.Componentes = this.CastString(cuit);
-                }
-                var regexConGuiones = new Regex(@"^\d{2}(-\d{7,8})-\d$");
-                if (regexConGuiones.IsMatch(cuit))
+                }                
+                if (RegexConGuiones.IsMatch(cuit))
                 {
                     this.Componentes = this.CastString(cuit, '-');
-                }
-                var regexConPuntos = new Regex(@"^\d{2}(\.\d{7,8})\.\d$");
-                if (regexConPuntos.IsMatch(cuit))
+                }                
+                if (RegexConPuntos.IsMatch(cuit))
                 {
                     this.Componentes = this.CastString(cuit, '.');
-                }
-                var regexConEspacio = new Regex(@"^\d{2}(\s\d{7,8})\s\d$");
-                if (regexConEspacio.IsMatch(cuit))
+                }                
+                if (RegexConEspacio.IsMatch(cuit))
                 {
                     this.Componentes = this.CastString(cuit, ' ');
                 }
