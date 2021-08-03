@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Pixelario.CUIT.Extensions;
 namespace Pixelario.CUIT.Demos.PrimerDemo
 {
     class Program
@@ -22,19 +23,11 @@ namespace Pixelario.CUIT.Demos.PrimerDemo
             {
                 listaDeCUITs.Add(CreateRandomCUIT());                
             }
-            int cuitsValidos = 0;
             var listaDeCUITsUnicos = listaDeCUITs.GroupBy(c => c).Select(c=>c.Key).ToList();
-            foreach (var cuit in listaDeCUITsUnicos)
-            {
-                if (cuit.IsValid())
-                {
-                    cuitsValidos++;
-                }
-            }
             Console.WriteLine(string.Format("Fueron generados {0} CUITs aleatorios, solo {1} fueron distintos y solo {2} fueron válidos.",
                 listaDeCUITs.Count,
                 listaDeCUITsUnicos.Count,
-                cuitsValidos));
+                listaDeCUITsUnicos.OnlyValid().Count()));
 
         }
 
