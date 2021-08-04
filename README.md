@@ -104,7 +104,7 @@ var cuit = CUIT.Complete(
 ## Extensiones
 
 ### OnlyValid
-Puede filtrar solo CUITs de validos de un IEnumerable 
+Puede filtrar CUITs validos de un IEnumerable 
 ```c#
 var cuitsValidos = listaDeCUITs.OnlyValid().ToList();
 
