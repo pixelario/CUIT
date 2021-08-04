@@ -10,7 +10,7 @@ Plataforma | Estado
 
 ## Instalación
 ```
-Install-Package Pixelario.CUIT -Version 0.6.0
+Install-Package Pixelario.CUIT -Version 0.7.0
 ```
 
 ## Modo de uso
@@ -99,6 +99,14 @@ Puede completar un CUIT con solo los dos primeros componentes: Tipo y Número de
 var cuit = CUIT.Complete(
     tipoDeCUIT: TipoDeCUIT._20,
     numeroDeDocumento: 27001001);
+
+```
+## Extensiones
+
+### OnlyValid
+Puede filtrar solo CUITs de validos de un IEnumerable 
+```c#
+var cuitsValidos = listaDeCUITs.OnlyValid().ToList();
 
 ```
 
