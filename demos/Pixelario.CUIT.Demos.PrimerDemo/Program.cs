@@ -24,10 +24,14 @@ namespace Pixelario.CUIT.Demos.PrimerDemo
                 listaDeCUITs.Add(CreateRandomCUIT());                
             }
             var listaDeCUITsUnicos = listaDeCUITs.GroupBy(c => c).Select(c=>c.Key).ToList();
-            Console.WriteLine(string.Format("Fueron generados {0} CUITs aleatorios, solo {1} fueron distintos y solo {2} fueron válidos.",
-                listaDeCUITs.Count,
-                listaDeCUITsUnicos.Count,
-                listaDeCUITsUnicos.OnlyValid().Count()));
+            Console.WriteLine(string.Format("Fueron generados {0} CUITs aleatorios.",
+                listaDeCUITs.Count));
+             Console.WriteLine(string.Format("{0} son distintos.",
+                listaDeCUITsUnicos.Count));
+            Console.WriteLine(string.Format("{0} son válidos.",
+               listaDeCUITsUnicos.OnlyValid().Count()));
+            Console.WriteLine(string.Format("{0} son válidos y tienen número de documento entre 27000000 y 27000009.",
+                listaDeCUITsUnicos.OnlyValid().RangeDocumento(27000000,9).Count()));
 
         }
 
