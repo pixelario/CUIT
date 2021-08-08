@@ -29,7 +29,7 @@ namespace Pixelario.CUIT
             }
         }
         private bool _isValid = true;
-        private ComponentesStruct Componentes { get; set; }
+        public ComponentesStruct Componentes { get; private set; }
         public CUIT(string cuit)
         {
             if (cuit.Length < 9 ||
