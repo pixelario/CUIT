@@ -10,7 +10,7 @@ Plataforma | Estado
 
 ## Instalación
 ```
-Install-Package Pixelario.CUIT -Version 0.7.0
+Install-Package Pixelario.CUIT -Version 0.8.0
 ```
 
 ## Modo de uso
@@ -107,6 +107,13 @@ var cuit = CUIT.Complete(
 Puede filtrar CUITs validos de un IEnumerable 
 ```c#
 var cuitsValidos = listaDeCUITs.OnlyValid().ToList();
+
+```
+
+### RangeDocumento
+Puede filtrar CUITs de un IEnumerable por un rango de números de documento.
+```c#
+var cuits = listaDeCUITs.RangeDocumento(27001001, 10).ToList();
 
 ```
 
