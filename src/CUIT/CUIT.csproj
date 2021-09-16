@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Pixelario.CUIT</RootNamespace>
     <AssemblyName>Pixelario.CUIT</AssemblyName>
-    <Version>0.8.0</Version>
+    <Version>0.9.0</Version>
     <Authors>Ing. Bernardo Raskovsky</Authors>
     <Company>Pixelario</Company>
     <Title>CUIT</Title>
@@ -12,8 +12,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/pixelario/CUIT</RepositoryUrl>
     <PackageTags>CUIT, Argentina</PackageTags>
-    <PackageReleaseNotes>* Nueva extension para filtrar CUIT de un IEnumerable por un rango de números de documento.
-* Mejoras en la visibilidad de las propiedades internas y la clase</PackageReleaseNotes>
+    <PackageReleaseNotes>* Correcciones de errores y mejor estabilidad</PackageReleaseNotes>
     <PackageProjectUrl>http://www.pixelario.com.ar</PackageProjectUrl>
     <PackageIcon>CUIT.png</PackageIcon>
     <PackageIconUrl />
