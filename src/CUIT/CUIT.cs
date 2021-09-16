@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Pixelario.CUIT
@@ -12,54 +13,38 @@ namespace Pixelario.CUIT
             RegexOptions.CultureInvariant, // No necesitamos chequear cultura para digitos, -,. y espacios
             TimeSpan.FromMilliseconds(100) // Importante no puede tardar mas de 100 milisegundos en detectar (evitar consumo de micro)
             );
+
         private static readonly Regex RegexConGuiones = new Regex(@"^\d{2}(-\d{7,8})-\d$", RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(100));
+
         private static readonly Regex RegexConPuntos = new Regex(@"^\d{2}(\.\d{7,8})\.\d$", RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(100));
         private static readonly Regex RegexConEspacio = new Regex(@"^\d{2}(\s\d{7,8})\s\d$", RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(100));
         public struct ComponentesStruct
         {
-            public TipoDeCUIT Tipo { get; set; }
+
+            private int _tipo;
+            public TipoDeCUIT Tipo => (TipoDeCUIT)_tipo;
             public int NumeroDeDocumento { get; set; }
             public int Verificador { get; set; }
-            public ComponentesStruct(TipoDeCUIT tipo, int numeroDeDocumento,
+            public ComponentesStruct(int tipo, int numeroDeDocumento,
                 int verificador)
             {
-                this.Tipo = tipo;
+                this._tipo = tipo;
                 this.NumeroDeDocumento = numeroDeDocumento;
                 this.Verificador = verificador;
             }
         }
         private bool _isValid = true;
         public ComponentesStruct Componentes { get; private set; }
+
+
+
         public CUIT(string cuit)
         {
-            if (cuit.Length < 9 ||
-                cuit.Length > 13)
-            {
-                this._isValid = false;
-            }
-            else
-            {
-                if (RegexSoloNumeros.IsMatch(cuit))
-                {
-                    this.Componentes = this.CastString(cuit);
-                }                
-                if (RegexConGuiones.IsMatch(cuit))
-                {
-                    this.Componentes = this.CastString(cuit, '-');
-                }                
-                if (RegexConPuntos.IsMatch(cuit))
-                {
-                    this.Componentes = this.CastString(cuit, '.');
-                }                
-                if (RegexConEspacio.IsMatch(cuit))
-                {
-                    this.Componentes = this.CastString(cuit, ' ');
-                }
-                if (this._isValid)
-                {
-                    this._isValid = CUIT.CalcularVerificador(this.ToString()) == this.Componentes.Verificador;
-                }
-            }
+            this.Componentes = CastCUIT(cuit);
+            this._isValid = this.Componentes.Tipo != default(int) &&
+                this.Componentes.NumeroDeDocumento != default(int) &&
+                CUIT.CalcularVerificador(this.ToString()) == this.Componentes.Verificador;
+
         }
 
         public static CUIT Complete(TipoDeCUIT tipoDeCUIT, int numeroDeDocumento)
@@ -74,97 +59,56 @@ namespace Pixelario.CUIT
         public CUIT(TipoDeCUIT tipoDeCUIT, int numeroDeDocumento, int verificador)
         {
             this.Componentes = new ComponentesStruct(
-                tipo: tipoDeCUIT,
+                tipo: (int)tipoDeCUIT,
                 numeroDeDocumento: numeroDeDocumento,
                 verificador: verificador);
             this._isValid = CUIT.CalcularVerificador(this.ToString()) == this.Componentes.Verificador;
         }
         public CUIT(long cuit)
         {
-            if(cuit < MINCUIT || cuit > MAXCUIT)
+            if (cuit < MINCUIT || cuit > MAXCUIT)
             {
                 this._isValid = false;
             }
             else
             {
-                this.Componentes = this.CastString(cuit.ToString());
+                this.Componentes = this.CastCUIT(cuit.ToString());
                 this._isValid = CUIT.CalcularVerificador(cuit.ToString()) == this.Componentes.Verificador;
             }
         }
-        private ComponentesStruct CastString(string cuit)
+
+        private ComponentesStruct CastCUIT(string cuit) =>
+            new (Func<string, bool> condition, Func<string, ComponentesStruct> Cast)[]
+            {
+                (cuit => RegexSoloNumeros.IsMatch(cuit) && cuit.Length == 11,
+                    cuit => CastString(cuit, 2, 8, 10)),
+                (cuit => RegexSoloNumeros.IsMatch(cuit) && cuit.Length == 10,
+                    cuit => CastString(cuit, 2,7,9)),
+
+                (cuit => (  RegexConGuiones.IsMatch(cuit) ||
+                            RegexConPuntos.IsMatch(cuit) ||
+                            RegexConEspacio.IsMatch(cuit)) &&
+                        cuit.Length == 13,
+                    cuit => CastString(cuit,3,8, 12)),
+
+                (cuit => (  RegexConGuiones.IsMatch(cuit) ||
+                            RegexConPuntos.IsMatch(cuit) ||
+                            RegexConEspacio.IsMatch(cuit)) && cuit.Length == 12,
+                    cuit => CastString(cuit,3,7,11)),
+                (cuit => true, (cuit) => { return new ComponentesStruct(); })
+            }.First(x => x.condition(cuit)).Cast(cuit);
+
+        private ComponentesStruct CastString(string cuit, int indice1, int count1, int indice2)
         {
             ReadOnlySpan<char> _cuitSpan = cuit.AsSpan();
-            if (_cuitSpan.Length < 10 ||
-                _cuitSpan.Length > 11)
-            {
-                this._isValid = false;
-            }
-            int tipo = int.Parse(_cuitSpan.Slice(0, 2));
-            if (!Enum.IsDefined(typeof(TipoDeCUIT), tipo))
-            {
-                this._isValid = false;
-            }
-
-            int numeroDeDocumento;
-            int verificador;
-            if (cuit.Length == 11)
-            {
-                numeroDeDocumento = int.Parse(_cuitSpan.Slice(2, 8));
-                verificador = int.Parse(_cuitSpan.Slice(10));
-            }
-            else
-            {
-                numeroDeDocumento = int.Parse(_cuitSpan.Slice(2, 7));
-                verificador = int.Parse(_cuitSpan.Slice(9));
-
-            }
-            return new ComponentesStruct(tipo: (TipoDeCUIT)tipo,
-                numeroDeDocumento: numeroDeDocumento,
-                verificador: verificador);
-        }
-        private ComponentesStruct CastString(string cuit, char separador)
-        {
-            int tipo = 0, numeroDeDocumento = 0, verificador = 0;
-            ReadOnlySpan<char> _cuitSpan = cuit.AsSpan();
-            for (int i = 0; i<3; i++)
-            {
-                if (_cuitSpan.Length == 0)
-                {
-                    this._isValid = false;
-                }
-                else
-                {
-                    var index = _cuitSpan.IndexOf(separador);
-                    if(index == -1 && i < 2)
-                    {
-                        this._isValid = false;
-                    }
-                    else
-                    {
-                        switch(i)
-                        {
-                            case 0:
-                                tipo = int.Parse(_cuitSpan.Slice(0, index));
-                                break;
-                            case 1:
-                                numeroDeDocumento = int.Parse(_cuitSpan.Slice(0, index));
-                                break;
-                            case 2:
-                                verificador = int.Parse(_cuitSpan);
-                                break;
-                        }                        
-                        _cuitSpan = _cuitSpan.Slice(index + 1);
-                    }
-                }
-            }
-            return new ComponentesStruct(tipo: (TipoDeCUIT)tipo,
-                numeroDeDocumento: numeroDeDocumento,
-                verificador: verificador);
+            return new ComponentesStruct(tipo: int.Parse(_cuitSpan.Slice(0, 2)),
+                        numeroDeDocumento: int.Parse(_cuitSpan.Slice(indice1, count1)),
+                        verificador: int.Parse(_cuitSpan.Slice(indice2)));
         }
         public override string ToString()
         {
             return string.Format("{0}{1}{2}",
-                (int)this.Componentes.Tipo,
+                FastTipoDeCuitToString(this.Componentes.Tipo),
                 this.Componentes.NumeroDeDocumento.ToString().Length > 7 ?
                     this.Componentes.NumeroDeDocumento.ToString() :
                     string.Format("0{0}", this.Componentes.NumeroDeDocumento.ToString()),
@@ -177,7 +121,7 @@ namespace Pixelario.CUIT
                 case "hyphen":
                 case "guion":
                     return string.Format("{0}-{1}-{2}",
-                (int)this.Componentes.Tipo,
+                FastTipoDeCuitToString(this.Componentes.Tipo),
                 this.Componentes.NumeroDeDocumento.ToString().Length > 7 ?
                     this.Componentes.NumeroDeDocumento.ToString() :
                     string.Format("0{0}", this.Componentes.NumeroDeDocumento.ToString()),
@@ -185,22 +129,45 @@ namespace Pixelario.CUIT
                 case "dot":
                 case "punto":
                     return string.Format("{0}.{1}.{2}",
-                (int)this.Componentes.Tipo,
-                this.Componentes.NumeroDeDocumento.ToString().Length > 7 ?
-                    this.Componentes.NumeroDeDocumento.ToString() :
-                    string.Format("0{0}", this.Componentes.NumeroDeDocumento.ToString()),
+                        FastTipoDeCuitToString(this.Componentes.Tipo),
+                        this.Componentes.NumeroDeDocumento.ToString().Length > 7 ?
+                            this.Componentes.NumeroDeDocumento.ToString() :
+                            string.Format("0{0}", this.Componentes.NumeroDeDocumento.ToString()),
                         this.Componentes.Verificador);
                 case "space":
                 case "espacio":
                     return string.Format("{0} {1} {2}",
-                (int)this.Componentes.Tipo,
-                this.Componentes.NumeroDeDocumento.ToString().Length > 7 ?
-                    this.Componentes.NumeroDeDocumento.ToString() :
-                    string.Format("0{0}", this.Componentes.NumeroDeDocumento.ToString()),
+                        FastTipoDeCuitToString(this.Componentes.Tipo),
+                        this.Componentes.NumeroDeDocumento.ToString().Length > 7 ?
+                            this.Componentes.NumeroDeDocumento.ToString() :
+                            string.Format("0{0}", this.Componentes.NumeroDeDocumento.ToString()),
                         this.Componentes.Verificador);
 
                 default:
                     return this.ToString();
+            }
+        }
+
+        public static string FastTipoDeCuitToString(TipoDeCUIT tipo)
+        {
+            switch (tipo)
+            {
+                case TipoDeCUIT._20:
+                    return "20";
+                case TipoDeCUIT._23:
+                    return "23";
+                case TipoDeCUIT._24:
+                    return "24";
+                case TipoDeCUIT._27:
+                    return "27";
+                case TipoDeCUIT._30:
+                    return "30";
+                case TipoDeCUIT._33:
+                    return "33";
+                case TipoDeCUIT._34:
+                    return "34";
+                default:
+                    return "0";
             }
         }
 
