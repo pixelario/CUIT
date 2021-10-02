@@ -10,6 +10,15 @@ namespace Pixelario.CUIT.Benchmark
     {
         static void Main(string[] args)
         {
+
+            //string[] cuitArray = new string[] { //"20270010017",
+            //    //"20-27001001-7","20.27001001.7", "20 27001001 7",
+            //    "2070010012", "20-7001001-2","20.7001001.2","20 7001001 2"
+            //};
+            //foreach (var cuitString in cuitArray)
+            //{
+            //    var cuit = new CUIT(cuitString).ToStringWithStringCreate();
+            //}
             BenchmarkRunner.Run<CodeToBench>();
         }
 
@@ -17,50 +26,31 @@ namespace Pixelario.CUIT.Benchmark
     [MemoryDiagnoser]
     public class CodeToBench
     {
-        [Benchmark]
-        public void Code()
-        {
-
-            var listaDeCUITs = new List<CUIT>();
-            for (int i = 0; i < 10000; i++)
-            {
-                listaDeCUITs.Add(CreateRandomCUIT());
-            }
-            int cuitsValidos = 0;
-            var listaDeCUITsUnicos = listaDeCUITs.GroupBy(c => c).Select(c => c.Key).ToList();
-            foreach (var cuit in listaDeCUITsUnicos)
-            {
-                if (cuit.IsValid())
-                {
-                    cuitsValidos++;
-                }
-            }
-            Console.WriteLine(string.Format("Fueron generados {0} CUITs aleatorios, solo {1} fueron distintos y solo {2} fueron válidos.",
-                listaDeCUITs.Count,
-                listaDeCUITsUnicos.Count,
-                cuitsValidos));
-        }
-        private static Random _random = new Random();
-        private static TipoDeCUIT[] arrayTiposDeCuit = new TipoDeCUIT[] {
-                TipoDeCUIT._20,
-                TipoDeCUIT._23,
-                TipoDeCUIT._24,
-                TipoDeCUIT._27,
-                TipoDeCUIT._30,
-                TipoDeCUIT._33,
-                TipoDeCUIT._34
+        public string[] cuitArray = new string[] { "20270010017",
+                "20-27001001-7","20.27001001.7", "20 27001001 7",
+                "2070010012", "20-7001001-2","20.7001001.2","20 7001001 2"
             };
-
-        public static CUIT CreateRandomCUIT()
+        [Benchmark]
+        public void CodeOldToString()
         {
-            var tipo = arrayTiposDeCuit[_random.Next(arrayTiposDeCuit.Length - 1)];
-            var numeroDeDocumento = 27000000 + _random.Next(100);
-            var verificador = _random.Next(9);
-            return new CUIT(
-                tipoDeCUIT: tipo,
-                numeroDeDocumento: numeroDeDocumento,
-                verificador: verificador);
+            foreach (var cuitString in cuitArray)
+            {
+                var cuit = new CUIT(cuitString).OldToString();
+                var cuit1 = new CUIT(cuitString).OldToString("hyphen");
+                var cuit2 = new CUIT(cuitString).OldToString("dot");
+                var cuit3 = new CUIT(cuitString).OldToString("space");
+            }
         }
-
+        [Benchmark]
+        public void CodeToStringWithStringCreate()
+        {
+            foreach (var cuitString in cuitArray)
+            {
+                var cuit = new CUIT(cuitString).ToStringWithStringCreate();
+                var cuit1 = new CUIT(cuitString).ToStringWithStringCreate("hyphen");
+                var cuit2 = new CUIT(cuitString).ToStringWithStringCreate("dot");
+                var cuit3 = new CUIT(cuitString).ToStringWithStringCreate("space");
+            }
+        }
     }
 }
