@@ -41,21 +41,21 @@
 
         public static readonly TestCUITEquality EqualsCUITLargosConStrings = new TestCUITEquality(
             resultadoCorrecto: true,
-            cuit1: new CUIT("20270010017"),
-            cuit2: new CUIT("20270010017"));
+            cuit1: CUIT.Parse("20270010017"),
+            cuit2: CUIT.Parse("20270010017"));
         public static readonly TestCUITEquality NotEqualsCUITLargosConStrings = new TestCUITEquality(
             resultadoCorrecto: false,
-            cuit1: new CUIT("20270010017"),
-            cuit2: new CUIT("20280010017"));
+            cuit1: CUIT.Parse("20270010017"),
+            cuit2: CUIT.Parse("20280010017"));
 
         public static readonly TestCUITEquality EqualsCUITCortoConStrings = new TestCUITEquality(
             resultadoCorrecto: true,
-            cuit1: new CUIT("2070010017"),
-            cuit2: new CUIT("2070010017"));
+            cuit1: CUIT.Parse("2070010017"),
+            cuit2: CUIT.Parse("2070010017"));
         public static readonly TestCUITEquality NotEqualsCUITCortoConStrings = new TestCUITEquality(
             resultadoCorrecto: false,
-            cuit1: new CUIT("2070010017"),
-            cuit2: new CUIT("2080010017"));
+            cuit1: CUIT.Parse("2070010017"),
+            cuit2: CUIT.Parse("2080010017"));
 
         protected TestCUITEquality(bool resultadoCorrecto, CUIT cuit1, CUIT cuit2)
         {

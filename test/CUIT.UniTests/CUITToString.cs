@@ -31,11 +31,11 @@ namespace Pixelario.CUIT.UniTests
             string result;
             if (string.IsNullOrEmpty(testCUIT.Delimitador))
             {
-                result = testCUIT.ToString();
+                result = testCUIT.CUIT.ToString();
             }
             else
             {
-                result = testCUIT.ToString(testCUIT.Delimitador);
+                result = testCUIT.CUIT.ToString(testCUIT.Delimitador);
             }
             result.Should().Be(testCUIT.ResultadoCorrecto);
         }

@@ -14,10 +14,9 @@ namespace Pixelario.CUIT.Extensions
                 throw new ArgumentNullException();
             }
             foreach (var cuit in input)
-            {
-
-                if (cuit.Componentes.NumeroDeDocumento >= start && 
-                    cuit.Componentes.NumeroDeDocumento <= end)
+            {                
+                if (int.Parse(cuit.Componentes.NumeroDeDocumento) >= start &&
+                    int.Parse(cuit.Componentes.NumeroDeDocumento) <= end)
                 {
                     yield return cuit;
                 }
