@@ -15,8 +15,8 @@ namespace Pixelario.CUIT.UniTests
         public void ThrowsExceptionGivenEmptyInput()
         {
             var input = new List<CUIT>() { 
-                new CUIT("20270010017"),
-                new CUIT("23270010017")
+                CUIT.Parse("20270010017"),
+                CUIT.Parse("23270010017")
             };
             Assert.Equal(1, input.OnlyValid().Count());
         }

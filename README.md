@@ -10,7 +10,7 @@ Plataforma | Estado
 
 ## Instalación
 ```
-Install-Package Pixelario.CUIT -Version 0.9.0
+Install-Package Pixelario.CUIT -Version 0.10.0
 ```
 
 ## Modo de uso
@@ -20,7 +20,7 @@ Puede instanciar un CUIT de tres formas. Por sus componentes, por un valor long 
 ```c#
 var tipo = TipoDeCUIT._20;
 var numeroDeDocumento = 27001001;
-var verificador = 7;
+var verificador = (byte)7;
 var cuit = new CUIT(
     tipoDeCUIT: tipo, 
     numeroDeDocumento: numeroDeDocumento, 
@@ -30,26 +30,26 @@ var cuit = new CUIT(
 #### Por un número long
 ```c#
 var long1 = 20270010017;
-var cuit1 = new CUIT(
+var cuit1 = CUIT.Parse(
     cuit: long1);
 ```
 
 #### Por una cadena con o sin separador
 ```c#
 var cadena1 = "20270010017";
-var cuit1 = new CUIT(
+var cuit1 = CUIT.Parse(
     cuit: cadena1);
 
 var cadena2 = "20-27001001-7";
-var cuit2 = new CUIT(
+var cuit2 = CUIT.Parse(
     cuit: cadena2);
 
 var cadena3 = "20.7001001.7";
-var cuit3 = new CUIT(
+var cuit3 = CUIT.Parse(
     cuit: cadena3);
 
 var cadena4 = "20 27001001 7";
-var cuit4 = new CUIT(
+var cuit4 = CUIT.Parse(
     cuit: cadena4);
 ```
 
@@ -79,7 +79,7 @@ Puede expresar un CUIT de distintas formas usuando como parametro un separador.
 ```c#
 var tipo = TipoDeCUIT._20;
 var numeroDeDocumento = 27001001;
-var verificador = 7;
+var verificador = (byte)7;
 var cuit = new CUIT(
     tipoDeCUIT: tipo, 
     numeroDeDocumento: numeroDeDocumento, 

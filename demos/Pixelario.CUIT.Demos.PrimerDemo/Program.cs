@@ -43,7 +43,7 @@ namespace Pixelario.CUIT.Demos.PrimerDemo
             return new CUIT(
                 tipoDeCUIT: tipo, 
                 numeroDeDocumento: numeroDeDocumento, 
-                verificador: verificador) ;
+                verificador: Convert.ToByte(verificador));
         }
 
     }

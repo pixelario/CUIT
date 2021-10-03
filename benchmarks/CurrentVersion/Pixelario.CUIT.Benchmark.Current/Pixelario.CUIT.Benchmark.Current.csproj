@@ -12,8 +12,4 @@
     <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\CUIT\CUIT.csproj" />
-  </ItemGroup>
-
 </Project>
