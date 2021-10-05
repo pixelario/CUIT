@@ -22,6 +22,15 @@
             resultadoCorrecto: true, 20270010017);
         public static readonly TestCUITIsValid ValidCUITCortoConLong = new TestCUITIsValid(
            resultadoCorrecto: true, 20070010012);
+        public static readonly TestCUITIsValid NoValidCUITConParametros = new TestCUITIsValid(
+            resultadoCorrecto: false,
+            tipoDeCUIT: TipoDeCUIT._20,
+            numeroDeDocumento: 27001001,
+            verificador: 8);
+        public static readonly TestCUITIsValid NoValidCUITConString = new TestCUITIsValid(
+            resultadoCorrecto: false, "20270010018");
+        public static readonly TestCUITIsValid NoValidCUITConLong = new TestCUITIsValid(
+            resultadoCorrecto: false, 20270010018);
         protected TestCUITIsValid(bool resultadoCorrecto, string cuit)            
         {
             this.CUIT = CUIT.Parse(cuit: cuit);
