@@ -26,30 +26,23 @@ namespace Pixelario.CUIT.Benchmark
     [MemoryDiagnoser]
     public class CodeToBench
     {
-        public string[] cuitArray = new string[] { "20270010017",
-                "20-27001001-7","20.27001001.7", "20 27001001 7",
-                "2070010012", "20-7001001-2","20.7001001.2","20 7001001 2"
+        public string[] cuitArray = new string[] { "20270010017",                
+                "20070010012"
             };
         [Benchmark]
-        public void CodeOldToString()
+        public void CodeOld()
         {
             foreach (var cuitString in cuitArray)
             {
-                var cuit = new CUIT(cuitString).OldToString();
-                var cuit1 = new CUIT(cuitString).OldToString("hyphen");
-                var cuit2 = new CUIT(cuitString).OldToString("dot");
-                var cuit3 = new CUIT(cuitString).OldToString("space");
+                var verificador = Lab.CalcularVerificador(cuitString);                       
             }
         }
         [Benchmark]
-        public void CodeToStringWithStringCreate()
+        public void CodeNew()
         {
             foreach (var cuitString in cuitArray)
             {
-                var cuit = new CUIT(cuitString).ToStringWithStringCreate();
-                var cuit1 = new CUIT(cuitString).ToStringWithStringCreate("hyphen");
-                var cuit2 = new CUIT(cuitString).ToStringWithStringCreate("dot");
-                var cuit3 = new CUIT(cuitString).ToStringWithStringCreate("space");
+                var verificador = Lab.CalcularVerificadorEnLab(cuitString);
             }
         }
     }
