@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Pixelario.CUIT</RootNamespace>
     <AssemblyName>Pixelario.CUIT</AssemblyName>
-    <Version>0.10.0</Version>
+    <Version>0.10.1</Version>
     <Authors>Ing. Bernardo Raskovsky</Authors>
     <Company>Pixelario</Company>
     <Title>CUIT</Title>
@@ -12,15 +12,13 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/pixelario/CUIT</RepositoryUrl>
     <PackageTags>CUIT, Argentina</PackageTags>
-    <PackageReleaseNotes>* Nuevos parseadores para string y long
-* Excepciones en los metodos new y parse
-* Nuevos metodos TryParse 
-* Mejora la performance del metodo ToString
-* Mejoras de estabilidad en la clase</PackageReleaseNotes>
+    <PackageReleaseNotes>* El método para obtener el verificador de validez fue optimizado.</PackageReleaseNotes>
     <PackageProjectUrl>http://www.pixelario.com.ar</PackageProjectUrl>
     <PackageIcon>CUIT.png</PackageIcon>
     <PackageIconUrl />
     <Copyright>2021</Copyright>
+    <AssemblyVersion>0.10.1.0</AssemblyVersion>
+    <FileVersion>0.10.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
