@@ -4,6 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace Pixelario.CUIT
 {
+    /// <summary>
+    /// Representa una clave unica de identificación tributaria de Argentina (CUIT)
+    /// </summary>
     public class CUIT : IEquatable<CUIT>
     {
         private const long MINCUIT = 20010000000;
@@ -45,6 +48,15 @@ namespace Pixelario.CUIT
         }
         private bool _isValid = false;
         public ComponentesStruct Componentes { get; private set; }
+        /// <summary>
+        /// Inicializa una nueva instancia de un <see cref="CUIT">CUIT</see> ingresando los componentes 
+        /// de forma individual
+        /// </summary>
+        /// <param name="tipoDeCUIT">Valor del enum que representa el tipo en un CUIT</param>
+        /// <param name="numeroDeDocumento">Valor del número de documento del CUIT</param>
+        /// <param name="verificador">Valor que representa el verificador del CUIT</param>
+        /// <exception cref="ArgumentOutOfRangeException">Cuando <paramref name="numeroDeDocumento"/> es menor a 1.000.000 
+        /// o cuando <paramref name="verificador"/> es mayor a 9</exception>
         public CUIT(TipoDeCUIT tipoDeCUIT, 
             int numeroDeDocumento, 
             byte verificador)
@@ -68,7 +80,13 @@ namespace Pixelario.CUIT
             this.Componentes = componentes;
             this._isValid = CUIT.CalcularVerificador(this.ToString()).ToString() == this.Componentes.Verificador;
         }
-
+        /// <summary>
+        /// Convierte una cadena de texto en un <see cref="CUIT">CUIT</see>
+        /// </summary>
+        /// <param name="cuit">Valor de la cadena de texto a convertir</param>
+        /// <returns>Un nuevo <see cref="CUIT">CUIT</see> instanciado</returns>
+        /// <exception cref="ArgumentNullException">Cuando <paramref name="cuit"/> es null</exception>
+        /// <exception cref="FormatException">Cuando <paramref name="cuit"/> está vacio o cuando no se puede convertir <paramref name="cuit"/> en <see cref="CUIT">CUIT</see></exception>
         public static CUIT Parse(string cuit)
         {
             if(cuit is null)
@@ -88,6 +106,12 @@ namespace Pixelario.CUIT
             }
             return new CUIT(componentes: componentes);
         }
+        /// <summary>
+        /// Intenta convertir una cadena de texto en un <see cref="CUIT">CUIT</see>
+        /// </summary>
+        /// <param name="input">Valor de la cadena de texto a convertir</param>
+        /// <param name="cuit">Variable al que se le instanciará un nuevo <see cref="CUIT">CUIT</see> si resulta la converción</param>
+        /// <returns>True si puede convertir <paramref name="input"/> en un<see cref="CUIT">CUIT</see>; False de lo contrario</returns>
         public static bool TryParse(string input, out CUIT cuit)
         {
             cuit = null;
@@ -109,6 +133,12 @@ namespace Pixelario.CUIT
             cuit = new CUIT(componentes: componentes);
             return true;
         }
+        /// <summary>
+        /// Convierte un número long (64-bit con signo) en un <see cref="CUIT">CUIT</see>
+        /// </summary>
+        /// <param name="cuit">Valor del número long (64-bit con signo) a convertir</param>
+        /// <returns>Un nuevo <see cref="CUIT">CUIT</see> instanciado</returns>
+        /// <exception cref="número long (64-bit con signo)">Cuando <paramref name="cuit"/> es menor que 20010000000 o cuando <paramref name="cuit"/> es mayor que 34999999999</exception>
         public static CUIT Parse(long cuit)
         {
             if (cuit < MINCUIT || cuit > MAXCUIT)
@@ -117,6 +147,12 @@ namespace Pixelario.CUIT
             }
             return new CUIT(componentes: CastCUIT(cuit.ToString()));
         }
+        /// <summary>
+        /// Intenta convertir un número long (64-bit con signo) en un <see cref="CUIT">CUIT</see>
+        /// </summary>
+        /// <param name="input">Valor del número long (64-bit con signo) a convertir</param>
+        /// <param name="cuit">Variable al que se le instanciará un nuevo <see cref="CUIT">CUIT</see> si resulta la converción</param>
+        /// <returns>True si puede convertir <paramref name="input"/> en un<see cref="CUIT">CUIT</see>; False de lo contrario</returns>
         public static bool TryParse(long input, out CUIT cuit)
         {
             if (input < MINCUIT || input > MAXCUIT)
@@ -128,7 +164,12 @@ namespace Pixelario.CUIT
             return true;
 
         }
-        
+        /// <summary>
+        /// Completa un <see cref="CUIT">CUIT</see> con solos los primeros dos componentes
+        /// </summary>
+        /// <param name="tipoDeCUIT">Valor del enum que representa el tipo en un CUIT</param>
+        /// <param name="numeroDeDocumento">Valor del número de documento del CUIT</param>
+        /// <returns>Un nuevo <see cref="CUIT">CUIT</see> instanciado</returns>
         public static CUIT Complete(TipoDeCUIT tipoDeCUIT, int numeroDeDocumento)
         {
             return new CUIT(tipoDeCUIT, numeroDeDocumento,
@@ -167,6 +208,11 @@ namespace Pixelario.CUIT
                         numeroDeDocumento: int.Parse(_cuitSpan.Slice(indice1, count1)),
                         verificador: int.Parse(_cuitSpan.Slice(indice2)));
         }
+
+        /// <summary>
+        /// Retorna la representación en cadena de texto del actual <see cref="CUIT">CUIT</see>
+        /// </summary>
+        /// <returns>Representación en cadena de texto sin separador</returns>
         public override string ToString() =>             
             string.Create(11, this.Componentes,
                 (span, value) =>
@@ -186,7 +232,11 @@ namespace Pixelario.CUIT
                         span[9] = y[7];
                         span[10] = z[0];
                     });
-
+        /// <summary>
+        /// Retorna la representación en cadena de texto del actual <see cref="CUIT">CUIT</see>
+        /// </summary>
+        /// <param name="separador">Valor de la cadena de texto que representa el separador</param>
+        /// <returns>Representación en cadena de texto con separador</returns>
         public string ToString(string separador)
         {
             switch (separador)
@@ -256,7 +306,7 @@ namespace Pixelario.CUIT
             }
         }
 
-        public static string FastTipoDeCuitToString(TipoDeCUIT tipo)
+        private static string FastTipoDeCuitToString(TipoDeCUIT tipo)
         {
             switch (tipo)
             {
@@ -296,18 +346,36 @@ namespace Pixelario.CUIT
                 (9 * byte.Parse(_cadenaSpan.Slice((9), 1)))
                 ) % 11);
         }
+        /// <summary>
+        /// Determina cuando el <see cref="CUIT">CUIT</see> epecífico es válido
+        /// </summary>
+        /// <returns>True si es válido; False de lo contrario</returns>
         public bool IsValid()
         {
             return this._isValid;
         }
+        /// <summary>
+        /// Determina cuando el <see cref="CUIT">CUIT</see> epecífico es igual a otro.
+        /// </summary>
+        /// <param name="other">Valor del <see cref="CUIT">CUIT</see> con el que se va a comparar</param>
+        /// <returns>True si son iguales; False de lo contrario</returns>
         public bool Equals(CUIT other)
         {
             return this.ToString() == other.ToString();
         }
+        /// <summary>
+        /// Retorna el código hash del <see cref="CUIT">CUIT</see> epecífico
+        /// </summary>
+        /// <returns>Un código hash(32-bit signed integer)</returns>
         public override int GetHashCode()
         {
             return this.ToString().GetHashCode();
         }
+        /// <summary>
+        /// Determina cuando el <see cref="CUIT">CUIT</see> epecífico es igual a un objeto.
+        /// </summary>
+        /// <param name="obj">Valor del objeto con el que se va a comparar</param>
+        /// <returns>True si son iguales; False de lo contrario</returns>
         public override bool Equals(object obj)
         {
             CUIT cuit = obj as CUIT;
@@ -316,6 +384,7 @@ namespace Pixelario.CUIT
             else
                 return false;
         }
+
         public static bool operator ==(CUIT cuit1, CUIT cuit2)
         {
             if (object.ReferenceEquals(cuit1, cuit2)) return true;

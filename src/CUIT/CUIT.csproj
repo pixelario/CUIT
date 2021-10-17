@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Pixelario.CUIT</RootNamespace>
     <AssemblyName>Pixelario.CUIT</AssemblyName>
-    <Version>0.10.1</Version>
+    <Version>0.10.2</Version>
     <Authors>Ing. Bernardo Raskovsky</Authors>
     <Company>Pixelario</Company>
     <Title>CUIT</Title>
@@ -12,13 +12,14 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/pixelario/CUIT</RepositoryUrl>
     <PackageTags>CUIT, Argentina</PackageTags>
-    <PackageReleaseNotes>* El método para obtener el verificador de validez fue optimizado.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Comentarios en los métodos públicos
+* Correcciones en la visibilidad de algunos métodos</PackageReleaseNotes>
     <PackageProjectUrl>http://www.pixelario.com.ar</PackageProjectUrl>
     <PackageIcon>CUIT.png</PackageIcon>
     <PackageIconUrl />
     <Copyright>2021</Copyright>
-    <AssemblyVersion>0.10.1.0</AssemblyVersion>
-    <FileVersion>0.10.1.0</FileVersion>
+    <AssemblyVersion>0.10.2.0</AssemblyVersion>
+    <FileVersion>0.10.2.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
