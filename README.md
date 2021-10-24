@@ -144,7 +144,7 @@ dotnet ef database update
 
 Se construirá una columna en la tabla de la entidad para el valor CUIT en string
 
-_ Ver Web API demo _
+_Ver Web API demo_
 
 ## Referencias:
 
