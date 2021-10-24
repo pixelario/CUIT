@@ -351,3 +351,6 @@ MigrationBackup/
 
 # EF Core Migratiosn
 [Mm]igrations/
+
+# Demo 2 AppSettings
+/demos/Pixelario.CUIT.Demos.EFWebAPI/appsettings.Development.json
