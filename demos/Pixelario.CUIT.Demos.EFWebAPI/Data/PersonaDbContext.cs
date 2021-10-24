@@ -11,7 +11,7 @@ namespace Pixelario.CUIT.Demos.EFWebAPI.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new PersonaEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonaEntityTypeConfigurationVarcharSQL());
         }
         public DbSet<Persona> Personas { get; set; }
     }

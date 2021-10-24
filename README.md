@@ -117,6 +117,35 @@ var cuits = listaDeCUITs.RangeDocumento(27001001, 10).ToList();
 
 ```
 
+## Configurar Entity Framework Core para SQL:
+Puede configurar el Context de EFCore con el siguiente código:
+
+```c#
+ public class PersonaEntityTypeConfigurationVarcharSQL : IEntityTypeConfiguration<Persona>
+    {
+        public void Configure(EntityTypeBuilder<Persona> builder)
+        {
+            builder.Property(p => p.CUIT)
+                .HasConversion(
+                c =>c.ToString(),
+                c => CUIT.Parse(c));
+
+        }
+    }
+
+```
+
+Crear una migración y actualizar la base de datos.
+
+```c#
+dotnet ef migrations add Initial
+dotnet ef database update
+```
+
+Se construirá una columna en la tabla de la entidad para el valor CUIT en string
+
+_ Ver Web API demo _
+
 ## Referencias:
 
 [Clave Única de Identificación Tributaria](https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Identificaci%C3%B3n_Tributaria)

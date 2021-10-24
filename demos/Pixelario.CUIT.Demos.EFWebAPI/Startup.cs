@@ -29,7 +29,8 @@ namespace Pixelario.CUIT.Demos.EFWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PersonaDbContext>(opt =>
-                opt.UseInMemoryDatabase("InMem"));
+                opt.UseSqlServer(Configuration.GetConnectionString("conn"))
+                );
             services.AddScoped<IPersonaRepository, PersonaRepository>();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
