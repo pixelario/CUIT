@@ -46,6 +46,8 @@ namespace Pixelario.CUIT
                 this.Verificador = verificador.ToString();
             }
         }
+
+
         private bool _isValid = false;
         public ComponentesStruct Componentes { get; private set; }
         /// <summary>
@@ -305,7 +307,32 @@ namespace Pixelario.CUIT
                     return this.ToString();
             }
         }
-
+        /// <summary>
+        /// Retorna la representación en cadena de texto del actual <see cref="CUIT">CUIT</see>
+        /// </summary>
+        /// <param name="separador">Valor char que representa el separador</param>
+        /// <returns>Representación en cadena de texto con separador</returns>
+        public string ToString(char separador)
+        {
+            return string.Create(13, this.Componentes, (span, value) => {
+                var x = value.Tipo.AsSpan();
+                var y = value.NumeroDeDocumento.AsSpan();
+                var z = value.Verificador.AsSpan();
+                span[0] = x[0];
+                span[1] = x[1];
+                span[2] = separador;
+                span[3] = y[0];
+                span[4] = y[1];
+                span[5] = y[2];
+                span[6] = y[3];
+                span[7] = y[4];
+                span[8] = y[5];
+                span[9] = y[6];
+                span[10] = y[7];
+                span[11] = separador;
+                span[12] = z[0];
+            });
+        }
         private static string FastTipoDeCuitToString(TipoDeCUIT tipo)
         {
             switch (tipo)
