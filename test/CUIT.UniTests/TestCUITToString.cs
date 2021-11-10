@@ -24,12 +24,19 @@ namespace Pixelario.CUIT.UniTests
         public static readonly TestCUITToString CUITCortoEnStringConPuntos = new TestCUITToString("20.07001001.0", "punto", "20-7001001-0");
         public static readonly TestCUITToString CUITNormalEnStringConEspacios = new TestCUITToString("20 27001001 0", "espacio", "20-27001001-0");
         public static readonly TestCUITToString CUITCortoEnStringConEspacios = new TestCUITToString("20 07001001 0", "espacio", "20-7001001-0");
-
+        public static readonly TestCUITToString CUITNormalEnStringConChar = new TestCUITToString("20%27001001%0", '%', "20-27001001-0");
+        public static readonly TestCUITToString CUITCortoEnStringConChar = new TestCUITToString("20%07001001%0", '%', "20-7001001-0");
         protected TestCUITToString(string resultadoCorrecto, string delimitador, string cuit) 
         {
             this.CUIT = CUIT.Parse(cuit);
             this.ResultadoCorrecto = resultadoCorrecto;
             this.Delimitador = delimitador;
+        }
+        protected TestCUITToString(string resultadoCorrecto, char delimitador, string cuit)
+        {
+            this.CUIT = CUIT.Parse(cuit);
+            this.ResultadoCorrecto = resultadoCorrecto;
+            this.DelimitadorChar = delimitador;
         }
         protected TestCUITToString(string resultadoCorrecto, 
             string delimitador, TipoDeCUIT tipoDeCUIT, int numeroDeDocumento, byte verificador)
@@ -44,6 +51,7 @@ namespace Pixelario.CUIT.UniTests
 
         public string ResultadoCorrecto { get; private set; }
         public string Delimitador { get; private set; }
+        public char DelimitadorChar { get; private set; }
         public CUIT CUIT { get; set; }
     }
 }

@@ -10,7 +10,7 @@ Plataforma | Estado
 
 ## Instalación
 ```
-Install-Package Pixelario.CUIT -Version 0.10.2
+Install-Package Pixelario.CUIT -Version 0.10.3
 ```
 
 ## Modo de uso
@@ -91,6 +91,7 @@ Console.WriteLine(cuit.ToString("punto")); // 20.27001001.7
 Console.WriteLine(cuit.ToString("dot")); // 20.27001001.7
 Console.WriteLine(cuit.ToString("espacio")); // 20 27001001 7
 Console.WriteLine(cuit.ToString("space")); // 20 27001001 7
+Console.WriteLine(cuit.ToString('%')); // 20%27001001%7
 ```
 
 ### Complete
